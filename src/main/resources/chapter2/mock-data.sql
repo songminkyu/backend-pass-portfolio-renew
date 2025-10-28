@@ -1,3 +1,5 @@
+use portfolio;
+    
 -- 100만 명의 회원 생성
 INSERT INTO ch2_members (email, password, nickname, created_at, updated_at)
 WITH RECURSIVE numbers AS (
