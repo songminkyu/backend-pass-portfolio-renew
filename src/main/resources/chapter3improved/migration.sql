@@ -1,5 +1,5 @@
 use portfolio;
-    
+
 INSERT INTO ch3_improved_orders (
     id,
     member_id,
