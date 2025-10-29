@@ -36,7 +36,7 @@ public class ImprovedOrderService {
         return statsPage.map(this::toOrderStatisticsResponse);
     }
 
-    //    @Scheduled(cron = "0 */3 * * * *")
+    //    @Scheduled(cron = "0 */3 * * * *") //매 3분 0초마다 특정 프로세스 수행
     @Transactional
     public void refreshOrderStatistics() {
         log.info("Starting order statistics refresh at {}", LocalDateTime.now());
