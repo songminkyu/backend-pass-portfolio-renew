@@ -95,6 +95,7 @@ public class ImprovedOrderService {
                 .orderDate(order.getOrderDate())
                 .totalAmount(order.getTotalAmount())
                 .totalItems(order.getTotalItems())
+                //이 로직을 유지하기 위해서는 업데이트 비용, 업데이트 로직이 추가로 고려되어야 한다.
                 .build();
     }
 } 
