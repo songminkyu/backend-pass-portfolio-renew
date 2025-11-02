@@ -1,5 +1,8 @@
-create database IF NOT EXISTS school; 
+create database IF NOT EXISTS school;
 use school;
+-- 기존에 book 테이블에 데이터가 있으면 깔끔히 비우고 데이터 삽입
+truncate table book;
+
 SET SESSION cte_max_recursion_depth = 1000000;
 CREATE TABLE IF NOT EXISTS book (
     id INT PRIMARY KEY AUTO_INCREMENT,
