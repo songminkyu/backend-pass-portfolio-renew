@@ -47,6 +47,14 @@ public class NamedLockEventFacade {
             }
         }
     }
+
+
+    /**
+     * while(true) 무한루프 문제를 해결한 개선된 버전
+     * - 최대 재시도 횟수를 제한하여 무한루프 방지
+     * - 락 획득 실패와 비즈니스 로직 실패를 모두 카운트
+     * - 프로덕션 환경에서 안전하게 사용 가능
+     */
     @Transactional
     public void improvedJoinEvent(Long eventId, Long memberId) throws InterruptedException {
         String lockName = String.format("event_%d", eventId);
