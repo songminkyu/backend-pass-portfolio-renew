@@ -25,6 +25,7 @@ public class EventWithLock {
     private int maxParticipants;
     private int currentParticipants;
 
+    //낙관적 락용으로 전용으로 사용함으로써 데이터 변경 충돌을 감지하는 용도로 사용
     @Version
     private Long version;
 

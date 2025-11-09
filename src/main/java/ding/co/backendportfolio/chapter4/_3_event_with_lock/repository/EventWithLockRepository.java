@@ -12,10 +12,14 @@ import java.util.Optional;
 
 @Repository
 public interface EventWithLockRepository extends JpaRepository<EventWithLock, Long> {
+    
+    //비관적 락
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select e from EventWithLock e where e.id = :id")
     Optional<EventWithLock> findByIdWithPessimisticLock(Long id);
+    //ex) SELECT * FROM accounts WHERE id = 1 FOR UPDATE; X LOCK (베타락)
 
+    //낙관적 락
     @Lock(LockModeType.OPTIMISTIC)
     @Query("select e from EventWithLock e where e.id = :id")
     Optional<EventWithLock> findByIdWithOptimisticLock(Long id);
