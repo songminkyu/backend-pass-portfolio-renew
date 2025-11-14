@@ -58,4 +58,54 @@ public class AsyncConfig {
         executor.initialize();
         return executor;
     }
+
+    /**
+     * 대량 데이터 처리용 Executor (I/O 바운드)
+     * CPU 코어 수 * 2 ~ 4배 권장
+     */
+    @Bean(name = "bulkAsyncExecutor")
+    public Executor bulkAsyncExecutor() {
+        int coreCount = Runtime.getRuntime().availableProcessors();
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+
+        // I/O 바운드 작업이므로 스레드 수를 충분히 늘림
+        executor.setCorePoolSize(coreCount * 2);           // 일반적으로 16~32
+        executor.setMaxPoolSize(coreCount * 4);           // 일반적으로 32~64
+        executor.setQueueCapacity(100000);                // 대량 작업 대비 큐 크기 확대
+
+        // 거절 정책: 호출 스레드에서 실행 (시스템 보호)
+        executor.setRejectedExecutionHandler(
+                new ThreadPoolExecutor.CallerRunsPolicy()
+        );
+
+        executor.setThreadNamePrefix("BulkAsync-");
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        executor.setAwaitTerminationSeconds(300);         // 최대 5분 대기
+        executor.initialize();
+
+        return executor;
+    }
+
+    /**
+     * 배치 처리용 Executor (DB/네트워크 I/O 최적화)
+     */
+    @Bean(name = "batchAsyncExecutor")
+    public Executor batchAsyncExecutor() {
+        int coreCount = Runtime.getRuntime().availableProcessors();
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+
+        executor.setCorePoolSize(coreCount);
+        executor.setMaxPoolSize(coreCount * 2);
+        executor.setQueueCapacity(50000);
+        executor.setRejectedExecutionHandler(
+                new ThreadPoolExecutor.CallerRunsPolicy()
+        );
+
+        executor.setThreadNamePrefix("BatchAsync-");
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        executor.setAwaitTerminationSeconds(300);
+        executor.initialize();
+
+        return executor;
+    }
 }
