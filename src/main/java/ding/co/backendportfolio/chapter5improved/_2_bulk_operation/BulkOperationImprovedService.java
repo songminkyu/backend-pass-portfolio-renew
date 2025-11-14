@@ -54,6 +54,11 @@ public class BulkOperationImprovedService {
     @Transactional
     public void bulkDeleteImproved() {
         entityManager.flush(); // 영속성 컨텍스트의 변경 내용을 데이터베이스에 반영
+        /*
+            deleteAllInBatch 동작 수행 방식
+            getDeleteAllQueryString() 에 DELETE_ALL_QUERY_STRING = "delete from %s x";
+            강력한 쿼리가 수행하여 bulk 형식으로 데이터를 제거함
+        */
         repository.deleteAllInBatch(); // Batch Delete 쿼리 실행
         entityManager.clear(); // 영속성 컨텍스트 초기화
     }
