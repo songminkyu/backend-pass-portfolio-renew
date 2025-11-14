@@ -13,7 +13,7 @@ public class TestDatabaseConfig {
     private static final MySQLContainer<?> mysqlContainer;
 
     static {
-        mysqlContainer = new MySQLContainer<>("mysql:8.0.33")
+        mysqlContainer = new MySQLContainer<>("mysql:8.0.44")
                 .withDatabaseName("testdb")
                 .withUsername("test")
                 .withPassword("test");
