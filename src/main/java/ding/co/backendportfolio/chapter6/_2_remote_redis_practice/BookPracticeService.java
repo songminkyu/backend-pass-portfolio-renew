@@ -20,6 +20,7 @@ public class BookPracticeService {
     private final RedisTemplate<String, String> redisTemplate;
     private final ObjectMapper objectMapper;
 
+    //Cache aside 방식을 수동 으로 구현한 로직
     public Book findBookById(Long id) throws JsonProcessingException {
         String cacheKey = CACHE_KEY_PREFIX + ":" + id;
 
