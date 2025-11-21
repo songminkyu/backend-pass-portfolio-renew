@@ -13,6 +13,13 @@ public class BookService {
     private final BookRepository bookRepository;
 
     /**
+     @Cacheable은 다음과 같은 순서로 동작함.
+     1. 해당 메서드가 호출될 때 캐시 저장소(value)에 동일한 키가 존재 하는지 확인.
+     2. 캐시에 데이터가 있으면 해당값을 반환하고 메서드는 실행 되지 않음.
+     3. 캐시에 없으면 메서드를 실행 하고, 결과를 캐시에 저장한 후 반환.
+    **/
+
+    /**
      * - id 를 통해서 Book 을 로컬 캐싱합니다.
      */
     @Cacheable(value = "book")
