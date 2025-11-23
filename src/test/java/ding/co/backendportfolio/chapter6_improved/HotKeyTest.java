@@ -27,9 +27,11 @@ class HotKeyTest extends AbstractBookTest {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+    //cache miss 시에 분산 락 없이 바로 DB 조회 하는 서비스
     @Autowired
     private HotKeyService hotKeyService;
 
+    //redis 기반 분산 락과 더블 체크 락킹(DCL) 하는 서비스
     @Autowired
     private ImprovedHotKeyService improvedHotKeyService;
 
